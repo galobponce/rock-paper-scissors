@@ -1,16 +1,18 @@
 "use strict"
 
 // Get DOM elements
-const rock_div = document.getElementById('R');
-const paper_div = document.getElementById('P');
-const scissors_div = document.getElementById('S');
+const $body = document.querySelector('body');
 
-const userScore_span = document.getElementById('user-score');
-const computerScore_span = document.getElementById('computer-score');
+const $rock = document.getElementById('R');
+const $paper = document.getElementById('P');
+const $scissors = document.getElementById('S');
 
-const result_p = document.querySelector('.result').firstElementChild;
+const $userScore = document.getElementById('user-score');
+const $computerScore = document.getElementById('computer-score');
 
-const actionMessage_p = document.getElementById('action-message');
+const $result = document.querySelector('.result > p');
+
+const $actionMessage = document.getElementById('action-message');
 
 
 
@@ -82,24 +84,39 @@ class Game {
         }
     }
 
-    // Used to render the result and the current score
+    // Used to render the result, current score and makes a simple animation
     renderResult() {
-        userScore_span.innerHTML = this.userScore;
-        computerScore_span.innerHTML = this.computerScore;
-        actionMessage_p.innerHTML = `Computer chose ${this.letterToWord(this.computerChoice)}.`;
+        $userScore.innerHTML = this.userScore;
+        $computerScore.innerHTML = this.computerScore;
+        $actionMessage.innerHTML = `Computer chose ${this.letterToWord(this.computerChoice)}.`;
 
         let text = '';
 
         switch (this.result) {
             case 'W':
+                $body.classList.add('bg-win');
+                setTimeout(() => {
+                    $body.classList.remove('bg-win');
+                }, 500);
+
                 text = `${this.letterToWord(this.userChoice)} beats ${this.letterToWord(this.computerChoice)}, you win!`;
                 break;
 
             case 'L':
+                $body.classList.add('bg-lose', 'shake');
+                setTimeout(() => {
+                    $body.classList.remove('bg-lose', 'shake');
+                }, 500);
+
                 text = `${this.letterToWord(this.computerChoice)} beats ${this.letterToWord(this.userChoice)}, you lose!`;
                 break;
 
             case 'T':
+                $body.classList.add('bg-tie');
+                setTimeout(() => {
+                    $body.classList.remove('bg-tie');
+                }, 500);
+
                 text = `${this.letterToWord(this.userChoice)} equals ${this.letterToWord(this.computerChoice)}, it's a tie!`;
                 break;
 
@@ -107,7 +124,7 @@ class Game {
                 break;
         }
 
-        result_p.innerHTML = text;
+        $result.innerHTML = text;
     }
 
 
@@ -125,13 +142,13 @@ const main = () => {
     const game = new Game();
 
     // Passes the user choice to the game
-    rock_div.addEventListener('click', () => {
+    $rock.addEventListener('click', () => {
         game.play('R');
     });
-    paper_div.addEventListener('click', () => {
+    $paper.addEventListener('click', () => {
         game.play('P');
     });
-    scissors_div.addEventListener('click', () => {
+    $scissors.addEventListener('click', () => {
         game.play('S');
     });
 }
