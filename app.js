@@ -121,7 +121,7 @@ class Game {
 }
 
 
-function main() {
+const main = () => {
     const game = new Game();
 
     // Passes the user choice to the game
