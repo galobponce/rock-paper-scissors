@@ -85,6 +85,8 @@ header>h1 {
 .choices {
     margin-top: 3em;
 
+    user-select: none;
+
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
